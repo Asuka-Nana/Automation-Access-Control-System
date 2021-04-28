@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>
+            hh
+        </title>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script>
+            axios.interceptors.request.use(function (config) {
+                const token = localStorage.getItem("admin");
+                console.log(token);
+                if(token !== null ){
+                    config.headers['Authorization'] = token;
+                }
+                return config;
+            });
+            
+        
+        // Add a response interceptor
+            axios.interceptors.response.use(response =>{
+            console.log(response.data);
+            if(response.data.code == 401){
+                alert("登录过期！");
+                location.href = "login.html";
+            }
+            return response;
+        });
+        </script>
+    </head>
+    <body>
+        <h1>1</h1>
+        <h2 id="xx"></h2>
+        <script>
+            axios.post('/dis', {
+               // username: user,
+               // password: pwd
+            })
+            .then(function (response) {
+               console.log(response.data);
+               document.getElementById("xx").innerText = response.data;
+            })
+            .catch(function (error) {
+               // console.log(error);
+           });
+        </script>
+    </body>
+</html>
