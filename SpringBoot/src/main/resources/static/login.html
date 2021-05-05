@@ -29,12 +29,27 @@
                 <div class="login-form-item">
                     <input id="inputpwd" name="password" type="password" placeholder="密码" class = " layui-input">
                 </div>
+                <img id = "vericode" alt="Base64 encoded image" width="150" height="50" />
                 <button class="layui-btn layui-btn-radius" type="button" onclick="login()">登录</button>
             </form>
         </div>
         <script src="layui/layui.js"></script>
 
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script>
+            axios.post('/code',{
+            })
+            .then(function(response){
+                console.log(response.data);
+                var codeurl = "data:image/jpg;base64," + response.data.vericode ;
+                var obj = document.getElementById("vericode");
+                obj.src = codeurl;
+            })
+            .catch(function (error) {
+            console.log(error);
+     });
+        </script>
 
 <script>
     function login(){

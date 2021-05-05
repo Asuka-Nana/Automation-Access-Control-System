@@ -3,8 +3,10 @@ package com.example.tryagain.controller;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.Claim;
 import com.example.tryagain.dto.LoginRequest;
+import com.example.tryagain.dto.Vericode;
 import com.example.tryagain.dto.logRes;
 import com.example.tryagain.pojo.Usertoken;
+import com.example.tryagain.service.codeService;
 import com.example.tryagain.service.loginService;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,11 +30,19 @@ public class loginController {
     @Autowired
     private loginService service;
 
+    @Autowired
+    private codeService codeservice;
+
     @RequestMapping("/login")
     public logRes loginauth (@RequestBody LoginRequest request){
         String username = request.getUsername();
         String password = request.getPassword();
         return service.verifypwdbyname(username,password);
+    }
+
+    @RequestMapping("/code")
+    public Vericode getcode(){
+        return codeservice.getvericode();
     }
 
 

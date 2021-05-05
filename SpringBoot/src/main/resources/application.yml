@@ -21,6 +21,6 @@ fastdep:
         path: /dis
         role: jwt # jwt为需要进行token校验
       front:
-        path: /login/**/**
+        path: /login/**/** ,/code
         role: anon # anon为无需校验
     secret: "6Dx8SIuaHXJYnpsG18SSpjPs50lZcT52" # jwt秘钥
