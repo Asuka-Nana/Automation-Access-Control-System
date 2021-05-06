@@ -29,7 +29,10 @@
                 <div class="login-form-item">
                     <input id="inputpwd" name="password" type="password" placeholder="密码" class = " layui-input">
                 </div>
-                <img id = "vericode" alt="Base64 encoded image" width="150" height="50" />
+                <div class="login-form-item">
+                    <input id="inputcode" name="vericode" placeholder="验证码" class = " layui-input" > 
+                </div>
+                <img id = "vericode" alt="Base64 encoded image" width="110" height="40" onclick="getcode()" />
                 <button class="layui-btn layui-btn-radius" type="button" onclick="login()">登录</button>
             </form>
         </div>
@@ -38,27 +41,36 @@
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
         <script>
-            axios.post('/code',{
+            function getcode()
+            {axios.post('/code',{
             })
             .then(function(response){
                 console.log(response.data);
                 var codeurl = "data:image/jpg;base64," + response.data.vericode ;
                 var obj = document.getElementById("vericode");
                 obj.src = codeurl;
+                localStorage.setItem("temp", response.data.token);
             })
             .catch(function (error) {
             console.log(error);
-     });
+            });}
+            getcode()
         </script>
 
 <script>
     function login(){
         var user = document.getElementById("inputuser").value;
         var pwd = document.getElementById("inputpwd").value;
+        var code = document.getElementById("inputcode").value;
 
-        axios.post('/login', {
+        const token_temp = localStorage.getItem("temp");
+
+        axios.post('/login', 
+        {
         username: user,
-        password: pwd
+        password: pwd,
+        vericode: code,
+        token : token_temp
         })
     .then(function (response) {
     console.log(response.data);

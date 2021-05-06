@@ -17,7 +17,7 @@ public class KaptchaConfig {
         com.google.code.kaptcha.impl.DefaultKaptcha defaultKaptcha = new com.google.code.kaptcha.impl.DefaultKaptcha();
         Properties properties = new Properties();
         // 图片边框
-        properties.setProperty("kaptcha.border", "yes");
+        properties.setProperty("kaptcha.border", "no");
         // 边框颜色
         properties.setProperty("kaptcha.border.color", "105,179,90");
         // 字体颜色

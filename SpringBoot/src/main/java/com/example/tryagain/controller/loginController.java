@@ -9,6 +9,8 @@ import com.example.tryagain.pojo.Usertoken;
 import com.example.tryagain.service.codeService;
 import com.example.tryagain.service.loginService;
 
+import com.example.tryagain.util.parsingtoken;
+import com.example.tryagain.util.sha;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -37,7 +39,13 @@ public class loginController {
     public logRes loginauth (@RequestBody LoginRequest request){
         String username = request.getUsername();
         String password = request.getPassword();
-        return service.verifypwdbyname(username,password);
+        String vericode = request.getVericode();
+        String token = request.getToken();
+        String code = sha.SHA1(vericode);
+        if (code.equals(token)) {
+            return service.verifypwdbyname(username, password);
+        }
+        return logRes.generateFailResult(3,"验证码错误");
     }
 
     @RequestMapping("/code")
