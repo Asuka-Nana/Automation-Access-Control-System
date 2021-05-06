@@ -57,23 +57,7 @@ public class loginController {
     @RequestMapping("/dis")
     @RequiresPermissions("0")
     public String loginaut (@RequestHeader("Authorization") String token ){
-       System.out.println(token);
-       String s = token;
-        s = s.replace("Bearer","");
-        String[] tmp = s.split("\\.");
-        System.out.println(tmp.length);
-        Base64 decoder = new Base64(true);
-        byte[] decodedBytes = decoder.decode(tmp[1]);
-        String res = new String(decodedBytes);
-        System.out.println(res);
-        String user = null;
-        try{
-            Usertoken usertoken = new ObjectMapper().readValue(res, Usertoken.class);
-            user = usertoken.getSub();
-        }
-        catch( com.fasterxml.jackson.core.JsonProcessingException e){
-        }
-        System.out.println(user);
+        String user = parsingtoken.Parsing(token);
         return "Hello world!" + user;
     }
 }

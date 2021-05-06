@@ -15,14 +15,13 @@ public class parsingtoken {
         byte[] decodedBytes = decoder.decode(tmp[1]);
         String res = new String(decodedBytes);
         System.out.println(res);
-        String ans = null;
+        String user = null;
         try{
-            Usertoken usertoken = new ObjectMapper().readValue(ans, Usertoken.class);
-            ans = usertoken.getSub();
+            Usertoken usertoken = new ObjectMapper().readValue(res, Usertoken.class);
+            user = usertoken.getSub();
         }
         catch( com.fasterxml.jackson.core.JsonProcessingException e){
         }
-        System.out.println(ans);
-        return ans;
+        return user;
     }
 }
