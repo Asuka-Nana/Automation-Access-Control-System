@@ -1,0 +1,21 @@
+.topbar .profile-pic {
+    width: 40px;
+    border-radius: 100%; }
+
+.dialogMenu{
+    width: 130px;
+    position: absolute;
+    top: 78px;
+    background-color: white;
+    right: 0;
+    border: 1px solid #dddddd;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.12);
+    border-bottom: none;
+    display: none;
+}
+
+.dialogMenu .dialogMenu-item{
+    padding: 15px 0;
+    text-align: center;
+    border-bottom: 1px solid #dddddd;
+}
