@@ -9,10 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
     <title>Admin Pro Admin Template - The Ultimate Bootstrap 4 Admin Template</title>
     <!-- Bootstrap Core CSS -->
-    <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
@@ -113,7 +113,7 @@
             </nav>
             <div class="dialogMenu" id="dialogMenu">
                 <div id="parentChangePassword" class="dialogMenu-item" onclick="parentChangePassword()">修改密码</div>
-                <div id="ChangeDetails" class="dialogMenu-item">修改个人信息</div>
+                <div id="ChangeDetails" class="dialogMenu-item" onclick="ChangeDetails()">修改个人信息</div>
                 <div id="parentExit" class="dialogMenu-item" onclick = "parentExit()">退出</div>
             </div>
             <script>
@@ -184,6 +184,50 @@
                 function parentExit(){
                     location.href="login.html";
                 }
+
+                function ChangeDetails(){
+                    layer.open({
+                        type: 1,
+                        title: '修改密码',
+                        content: document.getElementById('dialogChangeDetail').innerHTML, //这里content是一个普通的String
+                        btn: ['确定', '取消'],
+                        success: function (index, layero) {
+                            // form.render();
+                            // $('#dialogChangePasswordForm').submit(function (e) {
+                            //     console.log(formArray2Data($(this).serializeArray()));
+                            //     return false;
+                            // });
+                            console.log('success');
+                            document.getElementById("dialogMenu").style.display = 'none';
+                            document.getElementById('inputname').value = document.getElementById('name').innerText;
+                            document.getElementById('inputemail').value = document.getElementById('email').innerText;
+                            document.getElementById('inputtel').value = document.getElementById('tel').innerText;
+                            document.getElementById('inputloc').value = document.getElementById('loc').innerText;
+                            document.getElementById('inputdis').value = document.getElementById('dis').value;
+                        },
+                        yes: function (index, layero) {
+                            //$('#dialogChangePasswordForm').submit();
+                            console.log('success');
+                            var inputname = document.getElementById('inputname').value;
+                            var inputemail = document.getElementById('inputemail').value;
+                            var inputtel = document.getElementById('inputtel').value;
+                            var inputloc = document.getElementById('inputloc').value;
+                            var inputdis = document.getElementById('inputdis').value;
+                            
+                            if(inputname == document.getElementById('name').innerText && inputemail == document.getElementById('email').innerText && inputtel == document.getElementById('tel').innerText
+                            && inputloc == document.getElementById('loc').innerText && inputdis == document.getElementById('dis').value){
+                                layer.closeAll();
+                                return;
+                            }
+                            else{
+                                console.log(inputname);
+                            }
+                        },
+                        btn2: function (index, layero) {
+                            //return false 开启该代码可禁止点击该按钮关闭
+                        }
+                    });
+                }
             </script>
         </header>
 
@@ -212,6 +256,49 @@
                 </div>
             </form>
         </script>
+
+        <script type="text/html" id="dialogChangeDetail">
+            <form class="layui-form" id="dialogChangePasswordForm" style="margin-top:30px;padding-right:30px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-block">
+                        <input   id = "inputname"
+                                class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-block">
+                        <input   id = "inputemail"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">电话</label>
+                    <div class="layui-input-block">
+                        <input   id = "inputtel"
+                              class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">工位</label>
+                    <div class="layui-input-block">
+                        <input  id = "inputloc"
+                                class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">介绍</label>
+                    <div class="layui-input-block">
+                        <input   id = "inputdis"
+                                class="layui-input">
+                    </div>
+                </div>
+            </form>
+        </script>
+        <script>
+
+        </script>
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
@@ -224,24 +311,16 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li> <a class="waves-effect waves-dark" href="index.html" aria-expanded="false"><i
-                                    class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li> <a class="waves-effect waves-dark" href="pages-profile.html" aria-expanded="false"><i
-                                    class="mdi mdi-account-check"></i><span class="hide-menu">Profile</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="table-basic.html" aria-expanded="false"><i
-                                    class="mdi mdi-table"></i><span class="hide-menu">Table</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="icon-material.html" aria-expanded="false"><i
-                                    class="mdi mdi-emoticon"></i><span class="hide-menu">Icons</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="map-google.html" aria-expanded="false"><i
-                                    class="mdi mdi-earth"></i><span class="hide-menu">Map</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i
-                                    class="mdi mdi-book-open-variant"></i><span class="hide-menu">Blank</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="pages-error-404.html" aria-expanded="false"><i
-                                    class="mdi mdi-help-circle"></i><span class="hide-menu">404</span></a></li>
+                                    class="mdi mdi-account-check"></i><span class="hide-menu" style="font-size: 20px;">个人中心</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="pages-profile.html" aria-expanded="false"><i
+                                    class="mdi mdi-table"></i><span class="hide-menu" style="font-size: 20px;">我的出勤</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="pages-profile.html" aria-expanded="false"><i
+                                    class="mdi mdi-emoticon"></i><span class="hide-menu" style="font-size: 20px;">我的部门</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="pages-profile.html" aria-expanded="false"><i
+                                    class="mdi mdi-earth"></i><span class="hide-menu" style="font-size: 20px;">管理</span></a></li>
+                        
                     </ul>
-                    <div class="text-center m-t-30">
-                        <a href="#" class="btn waves-effect waves-light btn-info hidden-md-down"> Upgrade to Pro</a>
-                    </div>
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
@@ -282,20 +361,9 @@
                     <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card">
                             <div class="card-body">
-                                <center class="m-t-30"> <img src="../assets/images/users/5.jpg" class="img-circle"
+                                <center class="m-t-30"> <img src="assets/images/users/5.jpg" class="img-circle"
                                         width="150" />
-                                    <h4 class="card-title m-t-10">Hanna Gover</h4>
-                                    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6>
-                                    <div class="row text-center justify-content-md-center">
-                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i
-                                                    class="icon-people"></i>
-                                                <font class="font-medium">254</font>
-                                            </a></div>
-                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i
-                                                    class="icon-picture"></i>
-                                                <font class="font-medium">54</font>
-                                            </a></div>
-                                    </div>
+                                    <h4 class="card-title m-t-10">点击上图更换头像</h4>
                                 </center>
                             </div>
                         </div>
@@ -307,40 +375,54 @@
                             <div class="card-body">
                                 <form class="form-horizontal form-material">
                                     <div class="form-group">
-                                        <label class="col-md-12">Full Name</label>
+                                        <label class="col-md-12">用户名</label>
                                         <div class="col-md-12">
-                                            <label class="form-control form-control-line"> hello </label>
+                                            <label class="form-control form-control-line" id = "user"> hello </label>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="example-email" class="col-md-12">Email</label>
+                                        <label for="example-email" class="col-md-12">姓名</label>
                                         <div class="col-md-12">
-                                            <input type="email" placeholder="johnathan@admin.com"
-                                                class="form-control form-control-line" name="example-email"
-                                                id="example-email">
+                                            <label class="form-control form-control-line" id= "name"> hello </label>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-12">Password</label>
+                                        <label for="example-email" class="col-md-12">职位</label>
                                         <div class="col-md-12">
-                                            <input type="password" value="password"
-                                                class="form-control form-control-line">
+                                            <label class="form-control form-control-line" id="role"> hello </label>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-12">Phone No</label>
+                                        <label class="col-md-12">部门</label>
                                         <div class="col-md-12">
-                                            <input type="text" placeholder="123 456 7890"
-                                                class="form-control form-control-line">
+                                            <label class="form-control form-control-line" id = "department"> hello </label>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-12">Message</label>
+                                        <label class="col-md-12">邮箱</label>
                                         <div class="col-md-12">
-                                            <textarea rows="5" class="form-control form-control-line"></textarea>
+                                            <label class="form-control form-control-line" id = "email"> hello </label>
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-12">电话号码</label>
+                                        <div class="col-md-12">
+                                            <label class="form-control form-control-line" id = "tel"> hello </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">工位</label>
+                                        <div class="col-md-12">
+                                            <label class="form-control form-control-line" id = "loc"> hello </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">介绍</label>
+                                        <div class="col-md-12">
+                                            <textarea rows="5" class="form-control form-control-line" id = "dis">hello </textarea>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-group">
                                         <label class="col-sm-12">Select Country</label>
                                         <div class="col-sm-12">
                                             <select class="form-control form-control-line">
@@ -351,7 +433,7 @@
                                                 <option>Thailand</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- <div class="form-group">
                                         <div class="col-sm-12">
                                             <button class="btn btn-success">Update Profile</button>
@@ -374,8 +456,8 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer">Copyright &copy; 2019.Company name All rights reserved.<a target="_blank"
-                    href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></footer>
+            <!-- <footer class="footer">Copyright &copy; 2019.Company name All rights reserved.<a target="_blank"
+                    href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></footer> -->
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->
@@ -384,16 +466,18 @@
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
     </div>
+    <script>
+    </script>
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <script src="assets/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
-    <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
     <script src="js/perfect-scrollbar.jquery.min.js"></script>
     <!--Wave Effects -->

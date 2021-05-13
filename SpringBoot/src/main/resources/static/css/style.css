@@ -49,11 +49,11 @@ File: scss
 /******************* 
 Global Styles 
 *******************/
-@import url(../scss/icons/font-awesome/css/font-awesome.min.css);
+/* @import url(../scss/icons/font-awesome/css/font-awesome.min.css);
 @import url(../scss/icons/simple-line-icons/css/simple-line-icons.css);
 @import url(../scss/icons/linea-icons/linea.css);
 @import url(../scss/icons/themify-icons/themify-icons.css);
-@import url(../scss/icons/material-design-iconic-font/css/materialdesignicons.min.css);
+@import url(../scss/icons/material-design-iconic-font/css/materialdesignicons.min.css); */
 @import url(../css/spinners.css);
 @import url(../css/animate.css);
 * {
@@ -941,7 +941,8 @@ When click on sidebar toggler and also for tablet
     width: 290px;
     background: #edf0f5; }
     .mini-sidebar .sidebar-nav #sidebarnav > li:hover > a .hide-menu {
-      display: inline; }
+      display: inline; 
+      font-size: larger;}
     .mini-sidebar .sidebar-nav #sidebarnav > li:hover > a .label {
       display: none; } }
 
