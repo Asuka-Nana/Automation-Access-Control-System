@@ -20,6 +20,7 @@
     <link href="css/index.css" id="theme" rel="stylesheet">
     <link rel="stylesheet" href="layui/css/layui.css">
     <script src="layui/layui.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -114,7 +115,7 @@
             <div class="dialogMenu" id="dialogMenu">
                 <div id="parentChangePassword" class="dialogMenu-item" onclick="parentChangePassword()">修改密码</div>
                 <div id="ChangeDetails" class="dialogMenu-item" onclick="ChangeDetails()">修改个人信息</div>
-                <div id="parentExit" class="dialogMenu-item" onclick = "parentExit()">退出</div>
+                <div id="parentExit" class="dialogMenu-item" onclick="parentExit()">退出</div>
             </div>
             <script>
                 function parentChangePassword() {
@@ -151,7 +152,7 @@
                                     , anim: 'up'
                                     , content: "密码不能为空！"
                                     , btn: ['确认'],
-                                    yes: function(){
+                                    yes: function () {
                                         layer.closeAll();
                                     }
                                 });
@@ -166,7 +167,7 @@
                                     , anim: 'up'
                                     , content: "两次密码需要一致！"
                                     , btn: ['确认'],
-                                    yes: function(){
+                                    yes: function () {
                                         layer.closeAll();
                                     }
                                 });
@@ -181,11 +182,11 @@
                     });
                 }
 
-                function parentExit(){
-                    location.href="login.html";
+                function parentExit() {
+                    location.href = "login.html";
                 }
 
-                function ChangeDetails(){
+                function ChangeDetails() {
                     layer.open({
                         type: 1,
                         title: '修改密码',
@@ -213,13 +214,13 @@
                             var inputtel = document.getElementById('inputtel').value;
                             var inputloc = document.getElementById('inputloc').value;
                             var inputdis = document.getElementById('inputdis').value;
-                            
-                            if(inputname == document.getElementById('name').innerText && inputemail == document.getElementById('email').innerText && inputtel == document.getElementById('tel').innerText
-                            && inputloc == document.getElementById('loc').innerText && inputdis == document.getElementById('dis').value){
+
+                            if (inputname == document.getElementById('name').innerText && inputemail == document.getElementById('email').innerText && inputtel == document.getElementById('tel').innerText
+                                && inputloc == document.getElementById('loc').innerText && inputdis == document.getElementById('dis').value) {
                                 layer.closeAll();
                                 return;
                             }
-                            else{
+                            else {
                                 console.log(inputname);
                             }
                         },
@@ -312,14 +313,18 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li> <a class="waves-effect waves-dark" href="pages-profile.html" aria-expanded="false"><i
-                                    class="mdi mdi-account-check"></i><span class="hide-menu" style="font-size: 20px;">个人中心</span></a></li>
+                                    class="mdi mdi-account-check"></i><span class="hide-menu"
+                                    style="font-size: 20px;">个人中心</span></a></li>
                         <li> <a class="waves-effect waves-dark" href="pages-profile.html" aria-expanded="false"><i
-                                    class="mdi mdi-table"></i><span class="hide-menu" style="font-size: 20px;">我的出勤</span></a></li>
+                                    class="mdi mdi-table"></i><span class="hide-menu"
+                                    style="font-size: 20px;">我的出勤</span></a></li>
                         <li> <a class="waves-effect waves-dark" href="pages-profile.html" aria-expanded="false"><i
-                                    class="mdi mdi-emoticon"></i><span class="hide-menu" style="font-size: 20px;">我的部门</span></a></li>
+                                    class="mdi mdi-emoticon"></i><span class="hide-menu"
+                                    style="font-size: 20px;">我的部门</span></a></li>
                         <li> <a class="waves-effect waves-dark" href="pages-profile.html" aria-expanded="false"><i
-                                    class="mdi mdi-earth"></i><span class="hide-menu" style="font-size: 20px;">管理</span></a></li>
-                        
+                                    class="mdi mdi-earth"></i><span class="hide-menu"
+                                    style="font-size: 20px;">管理</span></a></li>
+
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -362,12 +367,62 @@
                         <div class="card">
                             <div class="card-body">
                                 <center class="m-t-30"> <img src="assets/images/users/5.jpg" class="img-circle"
-                                        width="150" />
+                                        id="user_img" onclick="fileupload()" width="150" height="150" />
                                     <h4 class="card-title m-t-10">点击上图更换头像</h4>
+                                    <input type="file" name="fileToUpload" id="fileToUpload1" οnchange="fileSelected() "
+                                        style="display: none;" accept=".jpg" />
                                 </center>
                             </div>
                         </div>
                     </div>
+                    <script>
+                        function fileupload() {
+                            //document.getElementById("fileToUpload").style.display ="block" ;  
+                            document.getElementById("fileToUpload1").click();
+                        }
+
+                        document.getElementById("fileToUpload1").addEventListener("change", function () {
+                            console.log("change");
+                            var files = document.getElementById('fileToUpload1').files;
+                            console.log(files[0]);
+                            var reader = new FileReader();
+                            reader.readAsDataURL(files[0]);
+                            reader.onload = function (f) {
+                                var src = this.result;
+                                document.getElementById('user_img').src = src;
+                            }
+
+                            const token = localStorage.getItem("admin");
+
+                            let formData = new FormData();
+                            formData.append('file', files[0]);
+                            axios.post('/img', formData, {
+                                headers: {
+                                    "Content-Type": "multipart/form-data",
+                                    "Authorization": token
+                                },
+                            }).then((response) => {
+                                console.log(response);
+                            }).catch((error) => {
+                                console.log(error);
+                            });
+                        });
+
+                        function fileSelected() {
+                            var files = document.getElementById('fileToUpload1').files;
+                            console.log(files[0].type);
+                            var reader = new FileReader();
+                            // 将文件以Data URL形式进行读入页面
+                            console.log(reader);
+                            reader.readAsBinaryString(file);
+                            reader.onload = function (f) {
+                                var result = document.getElementById("result");
+                                var src = "data:" + file.type + ";base64," + window.btoa(this.result);
+                                result.innerHTML = '<img src ="' + src + '"/>';
+                            }
+
+                        }
+                    </script>
                     <!-- Column -->
                     <!-- Column -->
                     <div class="col-lg-8 col-xlg-9 col-md-7">
@@ -377,13 +432,13 @@
                                     <div class="form-group">
                                         <label class="col-md-12">用户名</label>
                                         <div class="col-md-12">
-                                            <label class="form-control form-control-line" id = "user"> hello </label>
+                                            <label class="form-control form-control-line" id="user"> hello </label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">姓名</label>
                                         <div class="col-md-12">
-                                            <label class="form-control form-control-line" id= "name"> hello </label>
+                                            <label class="form-control form-control-line" id="name"> hello </label>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -395,31 +450,33 @@
                                     <div class="form-group">
                                         <label class="col-md-12">部门</label>
                                         <div class="col-md-12">
-                                            <label class="form-control form-control-line" id = "department"> hello </label>
+                                            <label class="form-control form-control-line" id="department"> hello
+                                            </label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">邮箱</label>
                                         <div class="col-md-12">
-                                            <label class="form-control form-control-line" id = "email"> hello </label>
+                                            <label class="form-control form-control-line" id="email"> hello </label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">电话号码</label>
                                         <div class="col-md-12">
-                                            <label class="form-control form-control-line" id = "tel"> hello </label>
+                                            <label class="form-control form-control-line" id="tel"> hello </label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">工位</label>
                                         <div class="col-md-12">
-                                            <label class="form-control form-control-line" id = "loc"> hello </label>
+                                            <label class="form-control form-control-line" id="loc"> hello </label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">介绍</label>
                                         <div class="col-md-12">
-                                            <textarea rows="5" class="form-control form-control-line" id = "dis">hello </textarea>
+                                            <textarea rows="5" class="form-control form-control-line"
+                                                id="dis">hello </textarea>
                                         </div>
                                     </div>
                                     <!-- <div class="form-group">
