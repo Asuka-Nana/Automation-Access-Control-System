@@ -1,4 +1,4 @@
-package com.example.tryagain.dto;
+package com.example.tryagain.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,5 +14,6 @@ public class UserDetail {
     private String telephone;
     private String location;
     private String discription;
+    private String img;
 
 }

@@ -1,19 +1,18 @@
 package com.example.tryagain.controller;
 
-import com.example.tryagain.dto.UserDetail;
+import com.example.tryagain.dto.ChangeDetail;
+import com.example.tryagain.dto.Password;
+import com.example.tryagain.pojo.UserDetail;
+import com.example.tryagain.mapper.UserMapper;
 import com.example.tryagain.service.UserDetailService;
 import com.example.tryagain.util.parsingtoken;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.UUID;
 
 @RestController
 public class indexController {
@@ -24,7 +23,7 @@ public class indexController {
 
         String pathName = "D:\\data\\";
         String[] tmp = file.getContentType().split("/");
-        String type = "." + tmp[1];
+        String type = "." + "jpg";
         String name = parsingtoken.Parsing(token);
         String picFullFileName = pathName + name + type;
         FileOutputStream fos = null;
@@ -52,6 +51,34 @@ public class indexController {
     public UserDetail retdeatil (@RequestHeader("Authorization") String token ){
         String user = parsingtoken.Parsing(token);
         return userDetailService.getdetail(user);
+    }
+
+    @Autowired
+    UserMapper userMapper;
+
+    @RequestMapping("/changepwd")
+    public Integer changepwd(@RequestHeader("Authorization") String token , @RequestBody Password pwd){
+        String user = parsingtoken.Parsing(token);
+        String pwdcorr = userMapper.findpwdbyname(user).getPassword();
+        if (pwd.getPassword().equals(pwdcorr)){
+            userMapper.changepwd(user,pwd.getNewpassword());
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+
+    @RequestMapping("/changedetail")
+    public Integer changedetail(@RequestHeader("Authorization") String token , @RequestBody ChangeDetail changeDetail){
+        String user = parsingtoken.Parsing(token);
+        String name = changeDetail.getName();
+        String email = changeDetail.getEmail();
+        String telephone = changeDetail.getTelephone();
+        String location = changeDetail.getLocation();
+        String discription = changeDetail.getDiscription();
+        userMapper.changedetail(user,name,email,telephone,location,discription);
+        return 1;
     }
 }
 
