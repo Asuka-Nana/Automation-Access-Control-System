@@ -53,11 +53,4 @@ public class loginController {
         return codeservice.getvericode();
     }
 
-
-    @RequestMapping("/dis")
-    @RequiresPermissions("0")
-    public String loginaut (@RequestHeader("Authorization") String token ){
-        String user = parsingtoken.Parsing(token);
-        return "Hello world!" + user;
-    }
 }

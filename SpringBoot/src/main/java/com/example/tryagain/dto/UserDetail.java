@@ -1,11 +1,12 @@
-package com.example.tryagain.pojo;
+package com.example.tryagain.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-public class User {
+@AllArgsConstructor
+public class UserDetail {
     private String username;
-    private String password;
     private String name;
     private Integer state;
     private Integer department;
@@ -13,4 +14,5 @@ public class User {
     private String telephone;
     private String location;
     private String discription;
+
 }

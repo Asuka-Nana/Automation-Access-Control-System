@@ -1,6 +1,10 @@
 package com.example.tryagain.controller;
 
+import com.example.tryagain.dto.UserDetail;
+import com.example.tryagain.service.UserDetailService;
 import com.example.tryagain.util.parsingtoken;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +42,16 @@ public class indexController {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Autowired
+    UserDetailService userDetailService;
+
+    @RequestMapping("/dis")
+    @RequiresPermissions("0")
+    public UserDetail retdeatil (@RequestHeader("Authorization") String token ){
+        String user = parsingtoken.Parsing(token);
+        return userDetailService.getdetail(user);
     }
 }
 
