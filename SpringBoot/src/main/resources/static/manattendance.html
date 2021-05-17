@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <title>Admin Pro Admin Template - The Ultimate Bootstrap 4 Admin Template</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="css/colors/default-dark.css" id="theme" rel="stylesheet">
+    <link href="css/index.css" id="theme" rel="stylesheet">
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+    <script>
+        axios.interceptors.request.use(function (config) {
+            const token = localStorage.getItem("admin");
+            console.log(token);
+            if (token !== null) {
+                config.headers['Authorization'] = token;
+            }
+            return config;
+        });
+
+
+        // Add a response interceptor
+        // axios.interceptors.response.use(response => {
+        //     console.log(response.data);
+        //     if (response.data.code == 401) {
+        //         alert("登录过期！");
+        //         location.href = "login.html";
+        //     }
+        //     return response;
+        // });
+    </script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="fix-header card-no-border fix-sidebar">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">Admin Pro</p>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html">
+                        <!-- Logo icon --><b>
+                            <!-- <img src="../assets/images/logo-icon.png" alt="homepage" class="dark-logo" /> -->
+                            <label style="font-weight:bold;">员工管理系统</label>
+                        </b>
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
+                        <span>
+                            <!-- <img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo" /> -->
+                        </span>
+                    </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav mr-auto">
+                        <!-- This is  -->
+                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
+                                href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- User profile and search -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav my-lg-0">
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item hidden-xs-down search-box"> <a
+                                class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i
+                                    class="ti-search"></i></a>
+                            <form class="app-search">
+                                <input type="text" class="form-control" placeholder="Search & enter"> <a
+                                    class="srh-btn"><i class="ti-close"></i></a>
+                            </form>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- Profile -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect waves-dark">
+                                <img src="image/default.png" alt="user" class="profile-pic" /></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li> <a class="waves-effect waves-dark" href="index.html" aria-expanded="false"><i
+                                    class="mdi mdi-account-check"></i><span class="hide-menu"
+                                    style="font-size: 20px;">个人中心</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="attendance.html" aria-expanded="false"><i
+                                    class="mdi mdi-table"></i><span class="hide-menu"
+                                    style="font-size: 20px;">我的出勤</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="table-basic.html" aria-expanded="false"><i
+                                    class="mdi mdi-emoticon"></i><span class="hide-menu"
+                                    style="font-size: 20px;">我的部门</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="manattendance.html" aria-expanded="false"><i
+                                    class="mdi mdi-earth"></i><span class="hide-menu"
+                                    style="font-size: 20px;">管理</span></a></li>
+
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+
+
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+
+                <div style="background-color: white;">
+                    <div style="display: flex;">
+                        <div id="att1" style="width: 800px;height:300px; "></div>
+                        <div id="att2" style="width: 800px;height:300px; "></div>
+                    </div>
+                    <label style="font-size: 30px;margin: 0 auto;width: 200px;display: block;" id = "user1">a</label>
+                </div>
+                <div style="width: 700px;height:20px;"></div>
+
+                <div style="background-color: white;" id = "dis2">
+                    <div style="display: flex;">
+                        <div id="att3" style="width: 800px;height:300px; "></div>
+                        <div id="att4" style="width: 800px;height:300px; "></div>
+                    </div>
+                    <label style="font-size: 30px;margin: 0 auto;width: 200px;display: block;" id = "user2">a</label>
+                </div>
+            </div>
+
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+            </fieldset>
+
+            <div id="demo20" align="center"></div>
+
+
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+
+    <script>
+        // e2(30, 20, "att1");
+        // e2(30, 20, "att2");
+        // e2(30, 20, "att3");
+        // e2(30, 20, "att4");
+        function e2(a, b, c,d) {
+            var chartDom = document.getElementById(c);
+            var myChart = echarts.init(chartDom);
+            var option;
+
+            option = {
+                title: {
+                    text: d,
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                },
+                series: [
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        radius: '50%',
+                        data: [
+                            { value: a, name: '出勤' },
+                            { value: b, name: '未出勤' },
+                        ],
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+
+            option && myChart.setOption(option);
+        }
+    </script>
+
+    <script>
+        var myDate = new Date();
+        var year = myDate.getFullYear();
+        var month = myDate.getMonth() + 1;
+        var monstr = "";
+        if (month < 10) {
+            monstr = "0" + month.toString();
+        }
+        else {
+            monstr = month.toString();
+        }
+        var yemon = year.toString() + '-' + monstr;
+        var day = myDate.getDate();
+        axios.post('/getallatt', {
+            date: yemon
+        })
+            .then(function (response) {
+                console.log(response.data);
+                var data = response.data;
+                layui.use(['laypage', 'layer'], function () {
+                    var laypage = layui.laypage
+                        , layer = layui.layer;
+
+                    //调用分页
+                    laypage.render({
+                        elem: 'demo20'
+                        , count: data.length * 5
+                        , jump: function (obj) {
+                            //模拟渲染
+                            e2(data[2*obj.curr - 2].month, day - data[2*obj.curr - 2].month, "att1","本月出勤");
+                            e2(data[2*obj.curr - 2].year, 365 - data[2*obj.curr - 2].year, "att2","本年出勤");
+                            document.getElementById("user1").innerText = data[2*obj.curr - 2].username;
+                            console.log(data.length);
+                            if (2*obj.curr - 1 ==data.length){
+                                console.log("hhh");
+                                document.getElementById("dis2").style.display = "none";
+                            }
+                            else{
+                                document.getElementById("dis2").style.display = "block";
+                                e2(data[2*obj.curr - 1].month, day - data[2*obj.curr - 1].month, "att3","本月出勤");
+                                e2(data[2*obj.curr - 1].year, 365 - data[2*obj.curr - 1].year, "att4","本年出勤");
+                                document.getElementById("user2").innerText = data[2*obj.curr - 2].username;
+
+                            }
+                        }
+                    });
+
+                });
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+    </script>
+
+
+
+
+    <script src="assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="assets/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="js/perfect-scrollbar.jquery.min.js"></script>
+    <!--Wave Effects -->
+    <script src="js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js/custom.min.js"></script>
+</body>
+
+</html>

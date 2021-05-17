@@ -10,5 +10,6 @@ public interface UserMapper {
     void changedetail(String username, String name,String email, String telephone, String location, String discription);
     User[] getusers (Integer department);
     void deleteuser(String username);
+    User[] getallusers();
 }
 

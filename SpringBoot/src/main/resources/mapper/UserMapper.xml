@@ -20,4 +20,8 @@
     <select id="deleteuser">
         DELETE FROM tb_user WHERE username = #{username}
     </select>
+
+    <select id="getallusers" resultType="com.example.tryagain.pojo.User">
+        SELECT * FROM tb_user
+    </select>
 </mapper>

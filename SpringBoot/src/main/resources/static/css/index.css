@@ -19,3 +19,9 @@
     text-align: center;
     border-bottom: 1px solid #dddddd;
 }
+
+.attendance{
+    background-color: white;
+    
+    border-radius: 5px;
+}
