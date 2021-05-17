@@ -1,5 +1,6 @@
 package com.example.tryagain.config;
 
+import com.example.tryagain.mapper.RolesMapper;
 import com.example.tryagain.mapper.UserMapper;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,21 @@ public class FastDepShiroJwtConfig  extends FastDepShiroJwtAuthorization {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private RolesMapper rolesMapper;
+
     @Override
     public SimpleAuthorizationInfo getAuthorizationInfo(String userId) {
-        String collect = userMapper.findpwdbyname(userId).getState().toString();
+        Integer collect = userMapper.findpwdbyname(userId).getState();
         Set<String> permissions = new HashSet<>();
-        permissions.add(collect);
+        Integer[] priv = rolesMapper.getPrivilege(collect);
+        for(Integer i = 0; i < priv.length; i++){
+            permissions.add(priv[i].toString());
+            System.out.println(priv[i].toString());
+        }
+        //permissions.add(collect);
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        System.out.println(collect);
+
         simpleAuthorizationInfo.addStringPermissions(permissions);
 
         return simpleAuthorizationInfo;

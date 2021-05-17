@@ -36,7 +36,7 @@
         // Add a response interceptor
         axios.interceptors.response.use(response => {
             console.log(response.data);
-            if (response.data.code == 401) {
+            if (response.data.code == 401 || response.data.code == 402) {
                 alert("登录过期！");
                 location.href = "login.html";
             }

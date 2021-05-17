@@ -18,8 +18,29 @@ fastdep:
   shiro-jwt:
     filter: #shiro过滤规则
       admin:
-        path: /dis
+        path: /getatt
         role: jwt # jwt为需要进行token校验
+      getattr:
+        path: /dis
+        role: jwt
+      img:
+        path: /img
+        role: jwt
+      changedetail:
+        path: /changedetail
+        role: jwt
+      changepwd:
+        path: /changepwd
+        role: jwt
+      getuser:
+        path: /getuser
+        role: jwt
+      visit:
+        path: /visit
+        role: jwt
+      delete:
+        path: /deleteuser
+        role: jwt
       front:
         path: /login/**/** ,/code
         role: anon # anon为无需校验

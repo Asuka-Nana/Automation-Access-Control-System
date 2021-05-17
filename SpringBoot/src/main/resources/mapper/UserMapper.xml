@@ -12,4 +12,12 @@
     <update id="changedetail">
         UPDATE tb_user SET name = #{name}, email =#{email}, telephone =#{telephone}, location = #{location},discription = #{discription} WHERE username = #{username}
     </update>
+
+    <select id="getusers" resultType="com.example.tryagain.pojo.User">
+        SELECT * FROM tb_user WHERE department = #{department}
+    </select>
+
+    <select id="deleteuser">
+        DELETE FROM tb_user WHERE username = #{username}
+    </select>
 </mapper>

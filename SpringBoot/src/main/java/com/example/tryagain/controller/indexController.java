@@ -2,6 +2,7 @@ package com.example.tryagain.controller;
 
 import com.example.tryagain.dto.ChangeDetail;
 import com.example.tryagain.dto.Password;
+import com.example.tryagain.dto.Visituser;
 import com.example.tryagain.pojo.UserDetail;
 import com.example.tryagain.mapper.UserMapper;
 import com.example.tryagain.service.UserDetailService;
@@ -17,6 +18,7 @@ import java.io.IOException;
 @RestController
 public class indexController {
     @RequestMapping("/img")
+    @RequiresPermissions("0")
     public void getUserImg(@RequestParam("file") MultipartFile file , @RequestHeader("Authorization") String token){
         if (file==null || file.isEmpty()) return ;
         //System.out.println("name: " + fileHandler.getOriginalFilename() + "  size: " + fileHandler.getSize());
@@ -53,10 +55,20 @@ public class indexController {
         return userDetailService.getdetail(user);
     }
 
+    @RequestMapping("/visit")
+    @RequiresPermissions("0")
+    public UserDetail visituser (@RequestBody Visituser visituser){
+        return userDetailService.getdetail(visituser.getUsername());
+    }
+
+
+
+
     @Autowired
     UserMapper userMapper;
 
     @RequestMapping("/changepwd")
+    @RequiresPermissions("0")
     public Integer changepwd(@RequestHeader("Authorization") String token , @RequestBody Password pwd){
         String user = parsingtoken.Parsing(token);
         String pwdcorr = userMapper.findpwdbyname(user).getPassword();
@@ -70,6 +82,7 @@ public class indexController {
     }
 
     @RequestMapping("/changedetail")
+    @RequiresPermissions("0")
     public Integer changedetail(@RequestHeader("Authorization") String token , @RequestBody ChangeDetail changeDetail){
         String user = parsingtoken.Parsing(token);
         String name = changeDetail.getName();

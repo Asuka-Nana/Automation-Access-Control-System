@@ -115,266 +115,18 @@
                         <!-- ============================================================== -->
                         <!-- Profile -->
                         <!-- ============================================================== -->
-                        <li class="nav-item" onclick="clicknav()">
+                        <li class="nav-item" >
                             <a class="nav-link waves-effect waves-dark">
                                 <img src="image/default.png" alt="user" class="profile-pic" /></a>
                         </li>
-                        <script>
-                            function clicknav() {
-                                if (document.getElementById("dialogMenu").style.display === 'block') {
-                                    console.log('hhh');
-                                    document.getElementById("dialogMenu").style.display = 'none';
-                                }
-                                else {
-                                    document.getElementById("dialogMenu").style.display = 'block';
-                                }
-                            }
-                        </script>
+                        
                     </ul>
                 </div>
             </nav>
-            <div class="dialogMenu" id="dialogMenu">
-                <div id="parentChangePassword" class="dialogMenu-item" onclick="parentChangePassword()">修改密码</div>
-                <div id="ChangeDetails" class="dialogMenu-item" onclick="ChangeDetails()">修改个人信息</div>
-                <div id="parentExit" class="dialogMenu-item" onclick="parentExit()">退出</div>
-            </div>
-            <script>
-                function parentChangePassword() {
-                    layer.open({
-                        type: 1,
-                        title: '修改密码',
-                        content: document.getElementById('dialogChangePassword').innerHTML, //这里content是一个普通的String
-                        btn: ['确定', '取消'],
-                        success: function (index, layero) {
-                            // form.render();
-                            // $('#dialogChangePasswordForm').submit(function (e) {
-                            //     console.log(formArray2Data($(this).serializeArray()));
-                            //     return false;
-                            // });
-                            console.log('success');
-                            document.getElementById("dialogMenu").style.display = 'none';
-                        },
-                        yes: function (index, layero) {
-                            //$('#dialogChangePasswordForm').submit();
-                            console.log('success');
-                            var pw1 = document.getElementById('password1').value;
-                            var pw2 = document.getElementById('password2').value;
-                            var pw3 = document.getElementById('password3').value;
-                            // console.log(pw1);
-                            // console.log(pw2);
-                            // console.log(pw3);
-
-                            if (pw1 == "" || pw2 == "" || pw3 == "") {
-                                layer.open({
-                                    title: [
-                                        '提示：',
-                                        'background-color:#A9A9A9; color:#fff;'
-                                    ]
-                                    , anim: 'up'
-                                    , content: "密码不能为空！"
-                                    , btn: ['确认'],
-                                    yes: function () {
-                                        layer.closeAll();
-                                    }
-                                });
-                                return;
-                            }
-                            if (pw2 !== pw3) {
-                                layer.open({
-                                    title: [
-                                        '提示：',
-                                        'background-color:#A9A9A9; color:#fff;'
-                                    ]
-                                    , anim: 'up'
-                                    , content: "两次密码需要一致！"
-                                    , btn: ['确认'],
-                                    yes: function () {
-                                        layer.closeAll();
-                                    }
-                                });
-                                return;
-                            }
-                            console.log('hhh');
-                            layer.closeAll();
-                            axios.post('/changepwd', {
-                                password: pw1,
-                                newpassword: pw2
-                            })
-                                .then(function (response) {
-                                    console.log(response.data);
-                                    if (response.data == 0) {
-                                        layer.open({
-                                            title: [
-                                                '提示：',
-                                                'background-color:#A9A9A9; color:#fff;'
-                                            ]
-                                            , anim: 'up'
-                                            , content: "原密码错误！"
-                                            , btn: ['确认'],
-                                        });
-                                    }
-                                    else {
-                                        layer.open({
-                                            title: [
-                                                '提示：',
-                                                'background-color:#A9A9A9; color:#fff;'
-                                            ]
-                                            , anim: 'up'
-                                            , content: "修改成功！"
-                                            , btn: ['确认'],
-                                        });
-                                    }
-                                })
-                                .catch(function (error) {
-                                    console.log(error);
-                                });
-                        },
-                        btn2: function (index, layero) {
-                            //return false 开启该代码可禁止点击该按钮关闭
-                        }
-                    });
-                }
-
-                function parentExit() {
-                    location.href = "login.html";
-                }
-
-                function ChangeDetails() {
-                    layer.open({
-                        type: 1,
-                        title: '修改密码',
-                        content: document.getElementById('dialogChangeDetail').innerHTML, //这里content是一个普通的String
-                        btn: ['确定', '取消'],
-                        success: function (index, layero) {
-                            // form.render();
-                            // $('#dialogChangePasswordForm').submit(function (e) {
-                            //     console.log(formArray2Data($(this).serializeArray()));
-                            //     return false;
-                            // });
-                            console.log('success');
-                            document.getElementById("dialogMenu").style.display = 'none';
-                            document.getElementById('inputname').value = document.getElementById('name').innerText;
-                            document.getElementById('inputemail').value = document.getElementById('email').innerText;
-                            document.getElementById('inputtel').value = document.getElementById('tel').innerText;
-                            document.getElementById('inputloc').value = document.getElementById('loc').innerText;
-                            document.getElementById('inputdis').value = document.getElementById('dis').value;
-                        },
-                        yes: function (index, layero) {
-                            //$('#dialogChangePasswordForm').submit();
-                            console.log('success');
-                            var inputname = document.getElementById('inputname').value;
-                            var inputemail = document.getElementById('inputemail').value;
-                            var inputtel = document.getElementById('inputtel').value;
-                            var inputloc = document.getElementById('inputloc').value;
-                            var inputdis = document.getElementById('inputdis').value;
-
-                            if (inputname == document.getElementById('name').innerText && inputemail == document.getElementById('email').innerText && inputtel == document.getElementById('tel').innerText
-                                && inputloc == document.getElementById('loc').innerText && inputdis == document.getElementById('dis').value) {
-                                layer.closeAll();
-                                return;
-                            }
-                            else {
-                                console.log(inputname);
-                                axios.post('/changedetail', {
-                                    name: inputname,
-                                    email: inputemail,
-                                    telephone: inputtel,
-                                    location: inputloc,
-                                    discription: inputdis
-                                })
-                                    .then(function (response) {
-                                        console.log(response.data);
-                                        if (response.data == 1) {
-                                            layer.open({
-                                                title: [
-                                                    '提示：',
-                                                    'background-color:#A9A9A9; color:#fff;'
-                                                ]
-                                                , anim: 'up'
-                                                , content: "修改成功！"
-                                                , btn: ['确认'],
-                                            });
-                                            layer.closeAll();
-                                        }
-                                    })
-                                    .catch(function (error) {
-                                        console.log(error);
-                                    });
-                            }
-                        },
-                        btn2: function (index, layero) {
-                            //return false 开启该代码可禁止点击该按钮关闭
-                        }
-                    });
-                }
-            </script>
+          
         </header>
 
-        <script type="text/html" id="dialogChangePassword">
-            <form class="layui-form" id="dialogChangePasswordForm" style="margin-top:30px;padding-right:30px;">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">原密码</label>
-                    <div class="layui-input-block">
-                        <input type="password" name="password" id = "password1"
-                               placeholder="请输入原密码" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">新密码</label>
-                    <div class="layui-input-block">
-                        <input type="password" name="newPassword" id = "password2"
-                               placeholder="请输入新密码" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">确认密码</label>
-                    <div class="layui-input-block">
-                        <input type="password" name="okPassword" id = "password3"
-                               placeholder="请重复输入密码" class="layui-input">
-                    </div>
-                </div>
-            </form>
-        </script>
 
-        <script type="text/html" id="dialogChangeDetail">
-            <form class="layui-form" id="dialogChangePasswordForm" style="margin-top:30px;padding-right:30px;">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">姓名</label>
-                    <div class="layui-input-block">
-                        <input   id = "inputname"
-                                class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">邮箱</label>
-                    <div class="layui-input-block">
-                        <input   id = "inputemail"
-                               class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">电话</label>
-                    <div class="layui-input-block">
-                        <input   id = "inputtel"
-                              class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">工位</label>
-                    <div class="layui-input-block">
-                        <input  id = "inputloc"
-                                class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">介绍</label>
-                    <div class="layui-input-block">
-                        <input   id = "inputdis"
-                                class="layui-input">
-                    </div>
-                </div>
-            </form>
-        </script>
         <script>
 
         </script>
@@ -396,7 +148,7 @@
                         <li> <a class="waves-effect waves-dark" href="attendance.html" aria-expanded="false"><i
                                     class="mdi mdi-table"></i><span class="hide-menu"
                                     style="font-size: 20px;">我的出勤</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="table-basic.html" aria-expanded="false"><i
+                        <li> <a class="waves-effect waves-dark" href="attendance.html" aria-expanded="false"><i
                                     class="mdi mdi-emoticon"></i><span class="hide-menu"
                                     style="font-size: 20px;">我的部门</span></a></li>
                         <li> <a class="waves-effect waves-dark" href="attendance.html" aria-expanded="false"><i
@@ -446,60 +198,10 @@
                             <div class="card-body">
                                 <center class="m-t-30"> <img src="assets/images/users/5.jpg" class="img-circle"
                                         id="user_img" onclick="fileupload()" width="150" height="150" />
-                                    <h4 class="card-title m-t-10">点击上图更换头像</h4>
-                                    <input type="file" name="fileToUpload" id="fileToUpload1" οnchange="fileSelected() "
-                                        style="display: none;" accept=".jpg" />
                                 </center>
                             </div>
                         </div>
                     </div>
-                    <script>
-                        function fileupload() {
-                            //document.getElementById("fileToUpload").style.display ="block" ;  
-                            document.getElementById("fileToUpload1").click();
-                        }
-
-                        document.getElementById("fileToUpload1").addEventListener("change", function () {
-                            console.log("change");
-                            var files = document.getElementById('fileToUpload1').files;
-                            console.log(files[0]);
-                            var reader = new FileReader();
-                            reader.readAsDataURL(files[0]);
-                            reader.onload = function (f) {
-                                var src = this.result;
-                                document.getElementById('user_img').src = src;
-                            }
-
-                            const token = localStorage.getItem("admin");
-
-                            let formData = new FormData();
-                            formData.append('file', files[0]);
-                            axios.post('/img', formData, {
-                                headers: {
-                                    "Content-Type": "multipart/form-data"
-                                },
-                            }).then((response) => {
-                                console.log(response);
-                            }).catch((error) => {
-                                console.log(error);
-                            });
-                        });
-
-                        function fileSelected() {
-                            var files = document.getElementById('fileToUpload1').files;
-                            console.log(files[0].type);
-                            var reader = new FileReader();
-                            // 将文件以Data URL形式进行读入页面
-                            console.log(reader);
-                            reader.readAsBinaryString(file);
-                            reader.onload = function (f) {
-                                var result = document.getElementById("result");
-                                var src = "data:" + file.type + ";base64," + window.btoa(this.result);
-                                result.innerHTML = '<img src ="' + src + '"/>';
-                            }
-
-                        }
-                    </script>
                     <!-- Column -->
                     <!-- Column -->
                     <div class="col-lg-8 col-xlg-9 col-md-7">
@@ -621,8 +323,11 @@
     <!--Custom JavaScript -->
     <script src="js/custom.min.js"></script>
     <script>
-        axios.post('/dis', {
-            username: user
+        const match = location.hash.match('#/(.*)');
+        const user = location.hash.split('/')[1];
+        console.log(user);
+        axios.post('/visit', {
+            username:user
         })
             .then(function (response) {
                 console.log(response.data);

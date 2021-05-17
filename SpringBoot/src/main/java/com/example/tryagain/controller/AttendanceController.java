@@ -5,6 +5,7 @@ import com.example.tryagain.dto.Date;
 import com.example.tryagain.dto.attendres;
 import com.example.tryagain.mapper.AttendanceMapper;
 import com.example.tryagain.util.parsingtoken;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -20,6 +21,7 @@ public class AttendanceController {
     AttendanceMapper attendanceMapper;
 
     @RequestMapping("/getatt")
+    @RequiresPermissions("0")
     public attendres getattend(@RequestHeader("Authorization") String token , @RequestBody Date date){
         Map<String, Integer> days = new HashMap<String,Integer>();
         days.put("01",31);
