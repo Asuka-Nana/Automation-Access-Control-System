@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.tryagain.mapper.NoticeMapper">
+    <select id="getnotice" resultType="com.example.tryagain.pojo.notice">
+        SELECT * FROM notice WHERE department = #{department} or department = 10
+    </select>
+
+
+</mapper>
