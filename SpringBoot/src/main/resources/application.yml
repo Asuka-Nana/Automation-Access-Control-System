@@ -41,6 +41,12 @@ fastdep:
       delete:
         path: /deleteuser
         role: jwt
+      getallatt:
+        path: /getallatt
+        role: jwt
+      adduser:
+        path: /adduser
+        role: jwt
       front:
         path: /login/**/** ,/code
         role: anon # anon为无需校验

@@ -7,6 +7,7 @@ import com.example.tryagain.service.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,9 +23,14 @@ public class UserDetailServiceimpl implements UserDetailService {
     public UserDetail getdetail (String username){
         InputStream inputStream = null;
         byte[] buffer = null;
+        String path = "D:\\data\\"+username+".jpg";
+        File tmp = new File(path);
+        if (!tmp.exists()){
+            path = "D:\\data\\def.jpg";
+        }
         //读取图片字节数组
         try {
-            inputStream = new FileInputStream("D:\\data\\"+username+".jpg");
+            inputStream = new FileInputStream(path);
             int count = 0;
             while (count == 0) {
                 count = inputStream.available();

@@ -11,5 +11,6 @@ public interface UserMapper {
     User[] getusers (Integer department);
     void deleteuser(String username);
     User[] getallusers();
+    void adduser (String username, String name,Integer role,Integer department,String email, String telephone, String location, String discription);
 }
 

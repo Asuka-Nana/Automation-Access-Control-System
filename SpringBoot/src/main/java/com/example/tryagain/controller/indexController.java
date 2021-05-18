@@ -57,7 +57,14 @@ public class indexController {
 
     @RequestMapping("/visit")
     @RequiresPermissions("0")
-    public UserDetail visituser (@RequestBody Visituser visituser){
+    public UserDetail visituser (@RequestHeader("Authorization") String token,@RequestBody Visituser visituser){
+        String user = parsingtoken.Parsing(token);
+        Integer mydep = userMapper.findpwdbyname(user).getDepartment();
+        Integer myrole = userMapper.findpwdbyname(user).getState();
+        Integer othdep = userMapper.findpwdbyname(visituser.getUsername()).getDepartment();
+        if(mydep != othdep && myrole != 2){
+            return new UserDetail("","",-1,-1,"","","","","");
+        }
         return userDetailService.getdetail(visituser.getUsername());
     }
 

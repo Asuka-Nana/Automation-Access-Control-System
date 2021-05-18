@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- Favicon icon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+  <title>Admin Pro Admin Template - The Ultimate Bootstrap 4 Admin Template</title>
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="layui/css/layui.css">
+  <script src="layui/layui.js"></script>
+
+  <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="css/style.css" rel="stylesheet">
+  <!-- You can change the theme colors from here -->
+  <link href="css/colors/default-dark.css" id="theme" rel="stylesheet">
+  <link href="css/index.css" id="theme" rel="stylesheet">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    axios.interceptors.request.use(function (config) {
+      const token = localStorage.getItem("admin");
+      console.log(token);
+      if (token !== null) {
+        config.headers['Authorization'] = token;
+      }
+      return config;
+    });
+
+  </script>
+</head>
+
+<body class="fix-header card-no-border fix-sidebar">
+  <div class="preloader">
+    <div class="loader">
+      <div class="loader__figure"></div>
+      <p class="loader__label">Admin Pro</p>
+    </div>
+  </div>
+  <div id="main-wrapper">
+    <header class="topbar">
+      <nav class="navbar top-navbar navbar-expand-md navbar-light">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">
+            <label style="font-weight:bold;">员工管理系统</label>
+            </b>
+            <span>
+            </span>
+          </a>
+        </div>
+        <div class="navbar-collapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
+                href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+          </ul>
+          <ul class="navbar-nav my-lg-0">
+            <li class="nav-item hidden-xs-down search-box"> <a class="nav-link hidden-sm-down waves-effect waves-dark"
+                href="javascript:void(0)"><i class="ti-search"></i></a>
+              <form class="app-search">
+                <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i
+                    class="ti-close"></i></a>
+              </form>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-dark">
+                <img src="image/def.png" alt="user" class="profile-pic" /></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <aside class="left-sidebar">
+      <div class="scroll-sidebar">
+        <nav class="sidebar-nav">
+          <ul id="sidebarnav">
+            <li> <a class="waves-effect waves-dark" href="index.html" aria-expanded="false"><i
+                  class="mdi mdi-account-check"></i><span class="hide-menu" style="font-size: 20px;">个人中心</span></a>
+            </li>
+            <li> <a class="waves-effect waves-dark" href="attendance.html" aria-expanded="false"><i
+                  class="mdi mdi-table"></i><span class="hide-menu" style="font-size: 20px;">我的出勤</span></a></li>
+            <li> <a class="waves-effect waves-dark" href="table-basic.html" aria-expanded="false"><i
+                  class="mdi mdi-emoticon"></i><span class="hide-menu" style="font-size: 20px;">我的部门</span></a></li>
+            <li> <a class="waves-effect waves-dark" href="notice.html" aria-expanded="false"><i
+                  class="mdi mdi-earth"></i><span class="hide-menu" style="font-size: 20px;">通知</span></a></li>
+            <li> <a class="waves-effect waves-dark" href="attendance.html" aria-expanded="false"><i
+                  class="mdi mdi-earth"></i><span class="hide-menu" style="font-size: 20px;">管理</span></a></li>
+
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+
+    <div class="page-wrapper">
+      <div class="container-fluid">
+        <div class="col-lg-8 col-xlg-9 col-md-7" style="margin-left: 200px;">
+          <div class="card">
+            <div class="card-body">
+              <div class="form-horizontal form-material">
+                <div class="form-group">
+                  <label class="col-md-12">用户名</label>
+                  <div class="col-md-12">
+                    <input type="email" class="form-control form-control-line" name="example-email" id="user">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="example-email" class="col-md-12">姓名</label>
+                  <div class="col-md-12">
+                    <input type="email" class="form-control form-control-line" name="example-email" id="name">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-12">职位</label>
+                  <div class="col-sm-12">
+                    <select class="form-control form-control-line" id="role">
+                      <option>员工</option>
+                      <option>总监</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-12">部门</label>
+                  <div class="col-sm-12">
+                    <select class="form-control form-control-line" id="depart">
+                      <option>市场部</option>
+                      <option>财务部</option>
+                      <option>销售部</option>
+                      <option>后勤部</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-12">邮箱</label>
+                  <div class="col-md-12">
+                    <input type="text" class="form-control form-control-line" id="email">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-12">电话号码</label>
+                  <div class="col-md-12">
+                    <input type="text" class="form-control form-control-line" id="tel">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-12">工位</label>
+                  <div class="col-md-12">
+                    <input type="text" class="form-control form-control-line" id="loc">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-12">简介</label>
+                  <div class="col-md-12">
+                    <textarea rows="5" class="form-control form-control-line" id="dis"></textarea>
+                  </div>
+                </div>
+                <div class="form-group" align="center">
+                  <div class="col-sm-12">
+                    <button class="btn btn-success" onclick="enter()">确定</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function enter() {
+      var user = document.getElementById("user").value;
+      var name = document.getElementById("name").value;
+      var roleindex = document.getElementById("role").selectedIndex;
+      console.log(roleindex);
+      var departindex = document.getElementById("depart").selectedIndex;
+      var email = document.getElementById("email").value;
+      var loc = document.getElementById("loc").value;
+      var dis = document.getElementById("dis").value;
+      var tel = document.getElementById("tel").value;
+      console.log(dis);
+
+      if (user == "") {
+        layer.open({
+          title: [
+            '提示：',
+            'background-color:#A9A9A9; color:#fff;'
+          ]
+          , anim: 'up'
+          , content: "用户名不得为空！"
+          , btn: ['确认'],
+          yes: function () {
+            layer.closeAll();
+          }
+        });
+        return;
+      }
+
+      axios.post('/adduser', {
+        username: user,
+        name: name,
+        role: roleindex,
+        department: departindex,
+        email: email,
+        location: loc,
+        telephone: tel,
+        discription: dis
+      })
+        .then(function (response) {
+          console.log(response.data);
+          var data = response.data;
+          if (data.code == 401 || data.code == 402 || data.code == 403) {
+            layer.open({
+              title: [
+                '提示：',
+                'background-color:#A9A9A9; color:#fff;'
+              ]
+              , anim: 'up'
+              , content: "请先登录！"
+              , btn: ['确认'],
+              yes: function () {
+                layer.closeAll();
+              }
+            });
+            return;
+          }
+          if (data == 1) {
+            layer.open({
+              title: [
+                '提示：',
+                'background-color:#A9A9A9; color:#fff;'
+              ]
+              , anim: 'up'
+              , content: "添加成功！"
+              , btn: ['确认'],
+              yes: function () {
+                layer.closeAll();
+              }
+            });
+            return;
+          }
+          if (data == 0) {
+            layer.open({
+              title: [
+                '提示：',
+                'background-color:#A9A9A9; color:#fff;'
+              ]
+              , anim: 'up'
+              , content: "权限不足！"
+              , btn: ['确认'],
+              yes: function () {
+                layer.closeAll();
+              }
+            });
+            return;
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+    }
+  </script>
+
+
+
+  <script src="assets/plugins/jquery/jquery.min.js"></script>
+  <script src="assets/plugins/bootstrap/js/popper.min.js"></script>
+  <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+  <script src="js/perfect-scrollbar.jquery.min.js"></script>
+  <script src="js/waves.js"></script>
+  <script src="js/sidebarmenu.js"></script>
+  <script src="js/custom.min.js"></script>
+</body>
+
+</html>

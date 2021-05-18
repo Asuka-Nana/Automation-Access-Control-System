@@ -81,6 +81,7 @@ public class AttendanceController {
     }
 
     @RequestMapping("/getallatt")
+    @RequiresPermissions("1")
     public List<demntattRea> getallatt(@RequestHeader("Authorization") String token, @RequestBody Date date){
         ini();
         String user = parsingtoken.Parsing(token);
@@ -100,7 +101,7 @@ public class AttendanceController {
             }
             return res;
         }
-        if (role == 0){
+        if (role == 1){
             Integer department = userMapper.findpwdbyname(user).getDepartment();
             User[] users = userMapper.getusers(department);
             for (Integer i = 0; i< users.length;i++){

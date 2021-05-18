@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,9 +36,14 @@ public class NoticeController {
         for(Integer i = 0; i < notices.length ; i++){
             InputStream inputStream = null;
             byte[] buffer = null;
+            String path = "D:\\data\\"+notices[i].getUsername()+".jpg";
+            File file = new File(path);
+            if(!file.exists()){
+                path = "D:\\data\\def.jpg";
+            }
             //读取图片字节数组
             try {
-                inputStream = new FileInputStream("D:\\data\\"+notices[i].getUsername()+".jpg");
+                inputStream = new FileInputStream(path);
                 int count = 0;
                 while (count == 0) {
                     count = inputStream.available();

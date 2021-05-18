@@ -118,7 +118,7 @@
                         <!-- ============================================================== -->
                         <li class="nav-item">
                             <a class="nav-link waves-effect waves-dark">
-                                <img src="image/default.png" alt="user" class="profile-pic" /></a>
+                                <img src="image/def.png" alt="user" class="profile-pic" /></a>
                         </li>
                     </ul>
                 </div>
@@ -140,6 +140,9 @@
                         <li> <a class="waves-effect waves-dark" href="table-basic.html" aria-expanded="false"><i
                                     class="mdi mdi-emoticon"></i><span class="hide-menu"
                                     style="font-size: 20px;">我的部门</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="notice.html" aria-expanded="false"><i
+                                    class="mdi mdi-earth"></i><span class="hide-menu"
+                                    style="font-size: 20px;">通知</span></a></li>
                         <li> <a class="waves-effect waves-dark" href="manattendance.html" aria-expanded="false"><i
                                     class="mdi mdi-earth"></i><span class="hide-menu"
                                     style="font-size: 20px;">管理</span></a></li>
@@ -163,16 +166,16 @@
                         <div id="att1" style="width: 800px;height:300px; "></div>
                         <div id="att2" style="width: 800px;height:300px; "></div>
                     </div>
-                    <label style="font-size: 30px;margin: 0 auto;width: 200px;display: block;" id = "user1">a</label>
+                    <label style="font-size: 30px;margin: 0 auto;width: 200px;display: block;" id="user1">a</label>
                 </div>
                 <div style="width: 700px;height:20px;"></div>
 
-                <div style="background-color: white;" id = "dis2">
+                <div style="background-color: white;" id="dis2">
                     <div style="display: flex;">
                         <div id="att3" style="width: 800px;height:300px; "></div>
                         <div id="att4" style="width: 800px;height:300px; "></div>
                     </div>
-                    <label style="font-size: 30px;margin: 0 auto;width: 200px;display: block;" id = "user2">a</label>
+                    <label style="font-size: 30px;margin: 0 auto;width: 200px;display: block;" id="user2"></label>
                 </div>
             </div>
 
@@ -193,7 +196,7 @@
         // e2(30, 20, "att2");
         // e2(30, 20, "att3");
         // e2(30, 20, "att4");
-        function e2(a, b, c,d) {
+        function e2(a, b, c, d) {
             var chartDom = document.getElementById(c);
             var myChart = echarts.init(chartDom);
             var option;
@@ -253,6 +256,21 @@
             .then(function (response) {
                 console.log(response.data);
                 var data = response.data;
+                if (data.code == 401 || data.code == 402 || data.code == 403) {
+                    layer.open({
+                        title: [
+                            '提示：',
+                            'background-color:#A9A9A9; color:#fff;'
+                        ]
+                        , anim: 'up'
+                        , content: "您没有权限访问！"
+                        , btn: ['确认'],
+                        yes: function () {
+                            layer.closeAll();
+                        }
+                    });
+                    return;
+                }
                 layui.use(['laypage', 'layer'], function () {
                     var laypage = layui.laypage
                         , layer = layui.layer;
@@ -263,19 +281,19 @@
                         , count: data.length * 5
                         , jump: function (obj) {
                             //模拟渲染
-                            e2(data[2*obj.curr - 2].month, day - data[2*obj.curr - 2].month, "att1","本月出勤");
-                            e2(data[2*obj.curr - 2].year, 365 - data[2*obj.curr - 2].year, "att2","本年出勤");
-                            document.getElementById("user1").innerText = data[2*obj.curr - 2].username;
+                            e2(data[2 * obj.curr - 2].month, day - data[2 * obj.curr - 2].month, "att1", "本月出勤");
+                            e2(data[2 * obj.curr - 2].year, 365 - data[2 * obj.curr - 2].year, "att2", "本年出勤");
+                            document.getElementById("user1").innerText = data[2 * obj.curr - 2].username;
                             console.log(data.length);
-                            if (2*obj.curr - 1 ==data.length){
+                            if (2 * obj.curr - 1 == data.length) {
                                 console.log("hhh");
                                 document.getElementById("dis2").style.display = "none";
                             }
-                            else{
+                            else {
                                 document.getElementById("dis2").style.display = "block";
-                                e2(data[2*obj.curr - 1].month, day - data[2*obj.curr - 1].month, "att3","本月出勤");
-                                e2(data[2*obj.curr - 1].year, 365 - data[2*obj.curr - 1].year, "att4","本年出勤");
-                                document.getElementById("user2").innerText = data[2*obj.curr - 2].username;
+                                e2(data[2 * obj.curr - 1].month, day - data[2 * obj.curr - 1].month, "att3", "本月出勤");
+                                e2(data[2 * obj.curr - 1].year, 365 - data[2 * obj.curr - 1].year, "att4", "本年出勤");
+                                document.getElementById("user2").innerText = data[2 * obj.curr - 1].username;
 
                             }
                         }

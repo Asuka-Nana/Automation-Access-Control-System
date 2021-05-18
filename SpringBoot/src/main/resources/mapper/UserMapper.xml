@@ -17,11 +17,15 @@
         SELECT * FROM tb_user WHERE department = #{department}
     </select>
 
-    <select id="deleteuser">
+    <delete id="deleteuser">
         DELETE FROM tb_user WHERE username = #{username}
-    </select>
+    </delete>
 
     <select id="getallusers" resultType="com.example.tryagain.pojo.User">
         SELECT * FROM tb_user
     </select>
+
+    <insert id="adduser">
+        INSERT INTO tb_user VALUES (#{username},#{username},#{role},#{department},#{email},#{telephone},#{location},#{discription},#{name})
+    </insert>
 </mapper>
