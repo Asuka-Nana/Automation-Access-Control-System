@@ -263,6 +263,21 @@
             });
             return;
           }
+          if (data == 2){
+            layer.open({
+              title: [
+                '提示：',
+                'background-color:#A9A9A9; color:#fff;'
+              ]
+              , anim: 'up'
+              , content: "用户已存在！"
+              , btn: ['确认'],
+              yes: function () {
+                layer.closeAll();
+              }
+            });
+            return;
+          }
         })
         .catch(function (error) {
           console.log(error);

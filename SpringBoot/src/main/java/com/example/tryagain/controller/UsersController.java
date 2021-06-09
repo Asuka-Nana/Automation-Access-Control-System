@@ -70,6 +70,9 @@ public class UsersController {
             return 0;
         }
         if (user.getState() == 2 ||(user.getState() == 1 && user.getDepartment() == addUser.getDepartment() && addUser.getRole() == 0)){
+            if (userMapper.findpwdbyname(addUser.getUsername()) != null){
+                return 2;
+            }
             userMapper.adduser(addUser.getUsername(),addUser.getName(),addUser.getRole(),addUser.getDepartment(),addUser.getEmail(),addUser.getTelephone(),addUser.getLocation(),addUser.getDiscription());
             //RWFile.RWimg(addUser.getUsername());
             return 1;

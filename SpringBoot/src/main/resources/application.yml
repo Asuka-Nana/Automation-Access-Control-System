@@ -47,6 +47,18 @@ fastdep:
       adduser:
         path: /adduser
         role: jwt
+      addNotice:
+        path: /addNotice
+        role: jwt
+      getnotice:
+        path: /getnotice
+        role: jwt
+      getcomment:
+        path: /getcomment
+        role: jwt
+      addcomment:
+        path: /addcomment
+        role: jwt
       front:
         path: /login/**/** ,/code
         role: anon # anon为无需校验

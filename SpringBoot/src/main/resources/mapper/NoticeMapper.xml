@@ -5,5 +5,17 @@
         SELECT * FROM notice WHERE department = #{department} or department = 10
     </select>
 
+    <insert id="addnotice" >
+        insert into notice (username,department,time,content) values (#{username},#{department},#{date},#{content})
+    </insert>
+
+    <select id="getdepbyid" resultType="Integer">
+        select department from notice where id = #{id}
+    </select>
+
+    <select id="getnoticebyid" resultType="com.example.tryagain.pojo.notice">
+        SELECT * FROM notice WHERE id = #{id}
+    </select>
+
 
 </mapper>

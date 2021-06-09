@@ -50,7 +50,7 @@
 <![endif]-->
 </head>
 
-<body class="fix-header card-no-border fix-sidebar">
+<body class="fix-header card-no-border fix-sidebar" onhashchange="funcRef()">
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -115,15 +115,15 @@
                         <!-- ============================================================== -->
                         <!-- Profile -->
                         <!-- ============================================================== -->
-                        <li class="nav-item" >
+                        <li class="nav-item">
                             <a class="nav-link waves-effect waves-dark">
                                 <img src="image/def.png" alt="user" class="profile-pic" /></a>
                         </li>
-                        
+
                     </ul>
                 </div>
             </nav>
-          
+
         </header>
 
 
@@ -323,44 +323,52 @@
     <!--Custom JavaScript -->
     <script src="js/custom.min.js"></script>
     <script>
-        const match = location.hash.match('#/(.*)');
-        const user = location.hash.split('/')[1];
-        console.log(user);
-        axios.post('/visit', {
-            username:user
-        })
-            .then(function (response) {
-                console.log(response.data);
-                if(response.data.username == ""){
-                    layer.open({
-                        title: [
-                            '提示：',
-                            'background-color:#A9A9A9; color:#fff;'
-                        ]
-                        , anim: 'up'
-                        , content: "您没有权限访问！"
-                        , btn: ['确认'],
-                        yes: function () {
-                            layer.closeAll();
-                        }
-                    });
-                    return;
-                }
-                departments = ["市场部", "财务部", "销售部", "后勤部"];
-                roles = ["员工", "总监", "总经理"];
-                document.getElementById('user').innerText = response.data.username;
-                document.getElementById('name').innerText = response.data.name;
-                document.getElementById('role').innerText = roles[response.data.state];
-                document.getElementById('department').innerText = departments[response.data.department];
-                document.getElementById('email').innerText = response.data.email;
-                document.getElementById('tel').innerText = response.data.telephone;
-                document.getElementById('loc').innerText = response.data.location;
-                document.getElementById('dis').innerText = response.data.discription;
-                document.getElementById('user_img').src = "data:image/jpg;base64," + response.data.img;
+        ini();
+        function ini() {
+            const match = location.hash.match('#/(.*)');
+            const user = location.hash.split('/')[1];
+            console.log(user);
+            axios.post('/visit', {
+                username: user
             })
-            .catch(function (error) {
-                console.log(error);
-            });
+                .then(function (response) {
+                    console.log(response.data);
+                    if (response.data.username == "") {
+                        layer.open({
+                            title: [
+                                '提示：',
+                                'background-color:#A9A9A9; color:#fff;'
+                            ]
+                            , anim: 'up'
+                            , content: "您没有权限访问！"
+                            , btn: ['确认'],
+                            yes: function () {
+                                location.href="table-basic.html";
+                            }
+                        });
+                        return;
+                    }
+                    departments = ["市场部", "财务部", "销售部", "后勤部"];
+                    roles = ["员工", "总监", "总经理"];
+                    document.getElementById('user').innerText = response.data.username;
+                    document.getElementById('name').innerText = response.data.name;
+                    document.getElementById('role').innerText = roles[response.data.state];
+                    document.getElementById('department').innerText = departments[response.data.department];
+                    document.getElementById('email').innerText = response.data.email;
+                    document.getElementById('tel').innerText = response.data.telephone;
+                    document.getElementById('loc').innerText = response.data.location;
+                    document.getElementById('dis').innerText = response.data.discription;
+                    document.getElementById('user_img').src = "data:image/jpg;base64," + response.data.img;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+        function funcRef() {
+            console.log(document.URL);
+            ini();
+        }
     </script>
 </body>
 

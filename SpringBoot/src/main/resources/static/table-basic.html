@@ -51,7 +51,7 @@
 <![endif]-->
 </head>
 
-<body class="fix-header card-no-border fix-sidebar">
+<body class="fix-header card-no-border fix-sidebar" >
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -143,7 +143,7 @@
                         <li> <a class="waves-effect waves-dark" href="notice.html" aria-expanded="false"><i
                                     class="mdi mdi-earth"></i><span class="hide-menu"
                                     style="font-size: 20px;">通知</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="attendance.html" aria-expanded="false"><i
+                        <li> <a class="waves-effect waves-dark" href="manattendance.html" aria-expanded="false"><i
                                     class="mdi mdi-earth"></i><span class="hide-menu"
                                     style="font-size: 20px;">管理</span></a></li>
 
@@ -166,7 +166,7 @@
                     </div>
 
                     <div id="add_user" style="margin-left: 500px;">
-                        <button class="btn btn-success" onclick="AddUser()">添加用户</button>
+                        <button id="adduser"  class="btn btn-success" onclick="AddUser()">添加用户</button>
                     </div>
                 </div>
 
@@ -213,6 +213,12 @@
                 console.log(response.data.users.length);
 
                 document.getElementById("table_header").innerText = departments[response.data.department];
+                if (response.data.role == 1 || response.data.role == 2){
+                    document.getElementById("adduser").style.display="block";
+                }
+                else{
+                    document.getElementById("adduser").style.display="none";
+                }
 
                 for (var i = 0; i < response.data.users.length; i++) {
                     var tr = document.createElement("tr");
