@@ -1,0 +1,13 @@
+..\..\output\fonts.o: ..\..\User\font\fonts.c
+..\..\output\fonts.o: ..\..\User\./font/fonts.h
+..\..\output\fonts.o: ..\..\Libraries\CMSIS\stm32f10x.h
+..\..\output\fonts.o: ..\..\Libraries\CMSIS\core_cm3.h
+..\..\output\fonts.o: F:\all_install\KEIL5\install\ARM\ARMCC\Bin\..\include\stdint.h
+..\..\output\fonts.o: ..\..\Libraries\CMSIS\system_stm32f10x.h
+..\..\output\fonts.o: ..\..\User\stm32f10x_conf.h
+..\..\output\fonts.o: ..\..\Libraries\FWlib\inc\stm32f10x_gpio.h
+..\..\output\fonts.o: ..\..\Libraries\CMSIS\stm32f10x.h
+..\..\output\fonts.o: ..\..\Libraries\FWlib\inc\stm32f10x_rcc.h
+..\..\output\fonts.o: ..\..\Libraries\FWlib\inc\stm32f10x_usart.h
+..\..\output\fonts.o: ..\..\Libraries\FWlib\inc\misc.h
+..\..\output\fonts.o: ..\..\User\./font/fonts.h
